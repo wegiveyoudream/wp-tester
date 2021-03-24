@@ -1,0 +1,494 @@
+﻿/*
+Malgun Gothic not support extended character(example: 䒑). So New Gulim used. (IE 8 successed, Google Chrome failed)
+NanumGothic not properly viewed in IE 9, so removed it.
+
+http://www.computerhope.com/htmcolor.htm
+Royal Blue: #2B60DE
+*/
+
+body {
+  font-family: Malgun Gothic, New Gulim, Dotum;
+  font-size: 12px;
+  color: #000000;
+  margin: 0 0 0 0;
+  background-color: transparent;
+}
+
+p {
+  margin: 2px 0 4px 0;
+  /*줄 사이가 너무 넓어 주석 line-height:120%;*/
+}
+
+table,
+img {
+  border: 0px none;
+  border-collapse: collapse;
+}
+
+table.usercontrol_border {
+  border-color: #e7e7e7;
+  border-width: 3px;
+  border-style: solid;
+}
+
+img.blue_border {
+  border-style: dashed;
+  border-color: Blue;
+  border-width: thin;
+}
+
+/* 본문 */
+td,
+div,
+form {
+  font-family: Malgun Gothic, New Gulim, Dotum;
+  font-size: 12px;
+  color: #000000;
+}
+
+th {
+  font-family: Malgun Gothic, New Gulim, Dotum;
+  font-size: 12px;
+  color: #000000;
+  font-weight: bold;
+  text-align: center;
+}
+td.caption {
+  font-family: Malgun Gothic, New Gulim, Dotum;
+  font-size: 15px;
+  color: #28903a;
+  font-weight: bold;
+}
+td.caption_small_gray {
+  font-family: Malgun Gothic, New Gulim, Dotum;
+  color: #7d7c7c;
+  font-size: 11px;
+}
+td.information {
+  font-family: Malgun Gothic, New Gulim, Dotum;
+  font-size: 15px;
+  color: #008fd4;
+  font-weight: bold;
+}
+td.manager_border {
+  border-style: solid;
+  border-width: thin;
+  border-color: #e7e7e7;
+  padding: 5px 5px 5px 5px;
+}
+
+a:link {
+  font-family: Malgun Gothic, New Gulim, Dotum;
+  color: #000000;
+  text-decoration: underline;
+}
+a:visited {
+  font-family: Malgun Gothic, New Gulim, Dotum;
+  color: #000000;
+  text-decoration: underline;
+}
+a:active {
+  font-family: Malgun Gothic, New Gulim, Dotum;
+  color: #000000;
+  text-decoration: none;
+}
+a:hover {
+  font-family: Malgun Gothic, New Gulim, Dotum;
+  color: #ff3300;
+  text-decoration: none;
+}
+
+/* 네비게이션 폰트 doctorgu 2006-11-7*/
+.navi {
+  color: #7f7f7f;
+  font-family: Malgun Gothic, New Gulim, Dotum;
+  font-size: 11px;
+  letter-spacing: -0.5px;
+}
+a.navi:link {
+  font-size: 11px;
+  color: #7f7f7f;
+  text-decoration: none;
+  letter-spacing: -0.5px;
+}
+a.navi:visited {
+  font-size: 11px;
+  color: #7f7f7f;
+  text-decoration: none;
+  letter-spacing: -0.5px;
+}
+a.navi:active {
+  font-size: 11px;
+  color: #000000;
+  text-decoration: none;
+  letter-spacing: -0.5px;
+}
+a.navi:hover {
+  font-size: 11px;
+  color: #000000;
+  text-decoration: none;
+  letter-spacing: -0.5px;
+}
+
+/* 상단 메뉴 폰트 doctorgu 2008-6-12*/
+.top_menu {
+  color: #ac9600;
+  font-family: Malgun Gothic, New Gulim, HY강M, Dotum;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: normal;
+}
+a.top_menu:link {
+  color: #ac9600;
+  font-family: Malgun Gothic, New Gulim, HY강M, Dotum;
+  font-weight: bold;
+  font-size: 30px;
+  text-decoration: none;
+  line-height: normal;
+}
+a.top_menu:visited {
+  color: #ac9600;
+  font-family: Malgun Gothic, New Gulim, HY강M, Dotum;
+  font-weight: bold;
+  font-size: 30px;
+  text-decoration: none;
+  line-height: normal;
+}
+a.top_menu:active {
+  color: #ac9600;
+  font-family: Malgun Gothic, New Gulim, HY강M, Dotum;
+  font-weight: bold;
+  font-size: 30px;
+  text-decoration: none;
+  line-height: normal;
+}
+a.top_menu:hover {
+  color: #998000;
+  font-family: Malgun Gothic, New Gulim, HY강M, Dotum;
+  font-weight: bold;
+  font-size: 30px;
+  text-decoration: none;
+  line-height: normal;
+}
+
+/* FAQ 인기 검색어 흰색 글자 */
+.faq_keyword {
+  font-size: 11px;
+  color: #ffffff;
+  font-family: Malgun Gothic, New Gulim, Dotum;
+  letter-spacing: 0px;
+}
+a.faq_keyword:link {
+  font-size: 11px;
+  color: #ffffff;
+  text-decoration: none;
+}
+a.faq_keyword:visited {
+  font-size: 11px;
+  color: #ffffff;
+  text-decoration: none;
+}
+a.faq_keyword:active {
+  font-size: 11px;
+  color: #ffffff;
+  text-decoration: none;
+}
+a.faq_keyword:hover {
+  font-size: 11px;
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.white {
+  color: white;
+}
+a.white:link {
+  color: white;
+}
+a.white:visited {
+  color: white;
+}
+a.white:active {
+  color: white;
+}
+a.white:hover {
+  color: white;
+}
+
+/* FAQ (Q) 항목 */
+.faq_q {
+  vertical-align: top;
+  padding: 10px 5px 5px 5px;
+}
+/* FAQ (A) 항목 */
+.faq_a {
+  vertical-align: top;
+  padding: 10px 5px 5px 5px;
+}
+
+/*기본 input, textarea */
+input,
+textarea,
+select {
+  font-family: Malgun Gothic, New Gulim, Dotum;
+  font-size: 12px;
+  color: #000000;
+  background-color: #ffffff;
+}
+input.thin_border {
+  border: solid 1px #b2b2b2;
+}
+textarea.thin_border {
+  border: solid 1px #b2b2b2;
+}
+
+.input_search {
+  width: 200px;
+  height: 17px;
+  background: #feffe4;
+  font-size: 12px;
+  border: dotted;
+  border-width: 1px;
+  border-color: Gray;
+}
+.box {
+  font-size: 12px;
+  font-family: Malgun Gothic, New Gulim, Dotum;
+  border: 1px solid #b5b5b5;
+}
+
+.small_char {
+  font-size: 9pt;
+  letter-spacing: -2;
+}
+
+/*회색 11 폰트 : 7D7C7C*/
+.gray11 {
+  color: #7d7c7c;
+  font-size: 11px;
+  letter-spacing: 0px;
+}
+a.gray11:link {
+  font-size: 11px;
+  color: #7d7c7c;
+  text-decoration: none;
+}
+a.gray11:visited {
+  font-size: 11px;
+  color: #7d7c7c;
+  text-decoration: none;
+}
+a.gray11:active {
+  font-size: 11px;
+  color: #7d7c7c;
+  text-decoration: none;
+}
+a.gray11:hover {
+  font-size: 11px;
+  color: #7d7c7c;
+  text-decoration: none;
+}
+
+/* write_value가 쓰인 td 안에는 text가 쓰여 높이가 맞지 않아 write_caption에는 padding-top에 +2을 함 */
+td.write_caption {
+  white-space: nowrap;
+  background-color: #e9e9e9;
+  color: #666666;
+  text-align: right;
+  font-weight: bold;
+  vertical-align: top;
+  padding: 7px 10px 5px 10px;
+}
+td.write_value {
+  background-color: #ffffff;
+  text-align: left;
+  vertical-align: top;
+  padding: 5px 10px 5px 10px;
+}
+
+.comment {
+  color: #0b969e;
+  font-size: 11px;
+}
+.comment_gray {
+  color: #666666;
+  font-size: 11px;
+}
+.comment_red {
+  color: Red;
+  font-size: 11px;
+}
+
+.padding_right_10 {
+  padding-right: 10px;
+}
+.padding_left_10 {
+  padding-left: 10px;
+}
+.padding_left_right_10 {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.padding_left_right_3 {
+  padding: 0 3px 0 3px;
+}
+.margin_left_10 {
+  margin-left: 10px;
+}
+
+/*Modal Popup*/
+.modal_background {
+  background-color: Gray;
+  filter: alpha(opacity=70);
+  opacity: 0.7;
+}
+
+div.modal_back {
+  visibility: hidden;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 1280px;
+  height: 1024px;
+  /* background-image:url(/images/common/dot_modal_bg.png); */
+  /* ieWin only stuff */
+  /* with this trick only IE manage the following 2 attributes */
+  _background-image: none;
+  /* _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale src='/images/common/dot_modal_bg.png'); */
+}
+
+.popup_control {
+  background-color: White;
+  position: absolute;
+  visibility: hidden;
+}
+
+.thumb_image {
+  cursor: hand;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #cccccc;
+  margin: 2px 2px 2px 2px;
+}
+
+td.note {
+  width: 30px;
+  height: 30px;
+  text-align: right;
+  padding-right: 2px;
+}
+
+td.note_sum {
+  width: 30px;
+  height: 30px;
+  text-align: right;
+  padding-right: 2px;
+  font-weight: bold;
+}
+
+td.dot2_blank_gray {
+  /* background-image: url(/images/board/bbs_line_dot.gif); */
+  background-repeat: repeat-x;
+}
+
+/* 페이징 */
+.paginate {
+  padding: 0 0 0 0;
+  text-align: center;
+}
+.paginate a,
+.paginate strong {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  color: #000000;
+  line-height: normal;
+  margin: 2px;
+}
+.paginate strong {
+  color: #000000 !important;
+  font-weight: bold;
+}
+img.pre {
+  margin: 0px 3px 0px 0px;
+  vertical-align: bottom;
+}
+img.next {
+  margin: 0px 0px 0px 3px;
+  vertical-align: bottom;
+}
+
+/* MemberLink 컨트롤 */
+ul.member_link {
+  list-style-type: none;
+  margin: 0;
+  padding: 1px;
+  background-color: White;
+  border: solid 1px black;
+  white-space: nowrap;
+}
+ul.member_link li {
+  padding: 2px 2px 2px 5px;
+}
+
+/* 게시판 */
+table.board {
+  border: 0px none;
+  border-collapse: collapse;
+}
+td.board_row {
+  padding: 0px;
+}
+td.board_row_album {
+  font-size: 12px;
+}
+
+/* 워드 채점 */
+td.wp_no_change,
+span.wp_no_change {
+  width: 15px;
+  text-align: center;
+  color: Black;
+}
+td.wp_replace,
+span.wp_replace {
+  width: 15px;
+  text-align: center;
+  color: Red;
+}
+td.wp_top_bottom_line,
+span.wp_top_bottom_line {
+  border-top: solid 1px silver;
+  border-bottom: solid 1px silver;
+}
+td.wp_delete,
+span.wp_delete {
+  width: 15px;
+  text-align: center;
+  width: auto;
+  color: #009900;
+}
+td.wp_add_middle,
+span.wp_add_middle {
+  width: 15px;
+  text-align: center;
+  text-decoration: underline;
+  color: #2b60de;
+}
+td.wp_add_bottom,
+span.wp_add_bottom {
+  width: auto;
+  text-align: left;
+  text-decoration: none;
+  color: #2b60de;
+} /*첨11과 같은 경우 다음 줄로 넘어가지 않도록 auto*/
+hr.wp_line {
+}
+.wp_value {
+  text-align: right;
+  color: black;
+}
+.wp_value_wrong {
+  text-align: right;
+  color: red;
+}

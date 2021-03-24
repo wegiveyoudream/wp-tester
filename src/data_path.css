@@ -1,0 +1,20 @@
+﻿/* http://designreviver.com/wp-content/uploads/2008/10/example.html */
+
+/* General */
+#cssdropdown, #cssdropdown ul { float:right; list-style: none; }
+#cssdropdown, #cssdropdown * { padding: 0; margin: 0; }
+
+/* Head links */
+#cssdropdown li.headlink { float: left; margin-left: -1px; text-align: left; }
+#cssdropdown li.headlink a { display: block; padding: 2px; }
+#cssdropdown li.headlink span { display: block; padding: 2px; font-weight:bold; }
+
+/* Separator */
+#cssdropdown li.separator { float: left; margin: 0px 3px 0px 3px; text-align: left; }
+#cssdropdown li.separator span { display: block; padding: 2px; }
+
+/* Child lists and links */
+#cssdropdown li.headlink ul { position:absolute; background-color:White; display: none; border: 1px black solid; text-align: left; white-space:nowrap; }
+#cssdropdown li.headlink:hover ul { display: block; }
+#cssdropdown li.headlink ul li a { padding: 2px 2px 2px 15px; }
+#cssdropdown li.headlink ul li a:hover { background-color:#d3d3d3; } /*LightGray*/
