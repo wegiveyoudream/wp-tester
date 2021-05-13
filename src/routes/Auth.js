@@ -9,8 +9,6 @@ import "antd/dist/antd.css";
 import { authService, firebaseInstance } from "fbase";
 import React, { useState } from "react";
 import "../index.css";
-import "../common.css";
-import "../data_path.css";
 
 const Auth = () => {
   const [email, setEmail] = useState("");

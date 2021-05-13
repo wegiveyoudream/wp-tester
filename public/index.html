@@ -25,6 +25,25 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
+
+    <script type="text/javascript">
+      // Shared both in public/index.html and CWpResultHtml.cs
+      function showItem(name) {
+        var divs = document.querySelectorAll("div[name]");
+        for (var i = 0; i < divs.length; i++) {
+          var div = divs[i];
+          div.style.display = "none";
+        }
+        if (name)
+          document.querySelector("div[name=" + name + "]").style.display =
+            "block";
+      }
+
+      var nameFirst =
+        document.querySelectorAll("div[name]").length &&
+        document.querySelectorAll("div[name]")[0].getAttribute("name");
+      if (nameFirst) showItem(nameFirst);
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

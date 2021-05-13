@@ -22,7 +22,7 @@ const UploadFileStandard = () => {
   };
   const handleUpload = () => {
     const uploadTask = storage
-      .ref("WP/StandardFile/" + fileUpload.name)
+      .ref("WpFile/Standard/" + fileUpload.name)
       .put(fileUpload);
     setCheckUpload("Uploading....");
     uploadTask.on(
@@ -34,7 +34,7 @@ const UploadFileStandard = () => {
       },
       () => {
         storage
-          .ref("WP/StandardFile/")
+          .ref("WpFile/Standard/")
           .child(fileUpload.name)
           .getDownloadURL()
           .then((url) => {
@@ -48,7 +48,7 @@ const UploadFileStandard = () => {
   const writeUserData = (ID, FileSrc, FileName, IsActive) => {
     firebaseInstance
       .database()
-      .ref("wpdb/standard/" + ID)
+      .ref("WpDb/41/Standard/" + ID)
       .set({
         FileSrc: FileSrc,
         FileName: FileName,
@@ -58,7 +58,7 @@ const UploadFileStandard = () => {
   };
   const [listURL, setListUrl] = useState();
   useEffect(() => {
-    var starCountRef = database.ref("wpdb/standard");
+    var starCountRef = database.ref("WpDb/41/Standard");
     starCountRef.on("value", (snapshot) => {
       const data = snapshot.val();
       if (data != null) setListUrl(Object.values(data));

@@ -22,7 +22,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build & node -e \"require('./onBuild.js').copyBuildTo('../wegiveyoudream.github.io/wp-check')\"",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
