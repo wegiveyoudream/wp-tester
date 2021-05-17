@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import moment from "moment";
 
 const UploadFileStandard = () => {
-  const [fileUpload, setFileUpload] = useState(null);
+  const [fileObj, setFileObj] = useState(null);
   const [checkUpload, setCheckUpload] = useState("");
   const props = {
     beforeUpload: (file) => {
@@ -17,17 +17,21 @@ const UploadFileStandard = () => {
       return file.name.includes(".hwp") ? true : Upload.LIST_IGNORE;
     },
     onChange: (info) => {
-      setFileUpload(info.fileList[0]["originFileObj"]);
+      const fileObj = info.fileList[0]["originFileObj"];
+      setFileObj(fileObj);
     },
   };
   const handleUpload = () => {
     const uploadTask = storage
-      .ref("WpFile/Standard/" + fileUpload.name)
-      .put(fileUpload);
-    setCheckUpload("Uploading....");
+      .ref("WpFile/Standard/" + fileObj.name)
+      .put(fileObj);
+    setCheckUpload("Uploading...");
     uploadTask.on(
       "state_changed",
-      (snapshot) => {},
+      (snapshot) => {
+        const percent = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log(percent + "% done");
+      },
       (error) => {
         console.log(error);
         setCheckUpload(error.message);
@@ -35,12 +39,12 @@ const UploadFileStandard = () => {
       () => {
         storage
           .ref("WpFile/Standard/")
-          .child(fileUpload.name)
+          .child(fileObj.name)
           .getDownloadURL()
           .then((url) => {
             setCheckUpload("Upload successfull!!!");
             const newID = database.ref().push().key;
-            writeUserData(newID, url, fileUpload.name, true);
+            writeUserData(newID, url, fileObj.name, true);
           });
       }
     );
