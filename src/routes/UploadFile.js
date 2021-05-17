@@ -97,7 +97,7 @@ const UploadFile = () => {
       const data = snapshot.val();
       if (data != null) {
         const list = Object.values(data);
-        console.log(list[0].HtmlResult);
+        console.log("Completed.");
         setHtmlResult(list[0].HtmlResult);
 
         completedRef.remove();
