@@ -39,6 +39,8 @@ function copyBuildTo(destPath) {
   fs.rmdirSync(dest, { recursive: true });
 
   copyRecursiveSync(src, dest);
+
+  copyRecursiveSync("D:My\\WWW\\images", destPath + "/images");
 }
 
 module.exports = {
