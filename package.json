@@ -1,6 +1,6 @@
 {
-  "homepage": "https://wegiveyoudream.github.io/wp-check/",
-  "name": "wp-check",
+  "homepage": "https://wegiveyoudream.github.io/wp-tester/",
+  "name": "wp-tester",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -22,7 +22,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
-    "build": "react-scripts build & node -e \"require('./onBuild.js').copyBuildTo('../wegiveyoudream.github.io/wp-check')\"",
+    "build": "react-scripts build & node -e \"require('./onBuild.js').copyBuildTo('../wegiveyoudream.github.io/wp-tester')\"",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

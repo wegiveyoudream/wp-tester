@@ -7,6 +7,7 @@ import moment from "moment";
 const UploadFileStandard = () => {
   const [fileObj, setFileObj] = useState(null);
   const [checkUpload, setCheckUpload] = useState("");
+
   const props = {
     beforeUpload: (file) => {
       // if (file.type !== "application/haansofthwp" && !file.name.includes(".hwp")) {
@@ -17,10 +18,12 @@ const UploadFileStandard = () => {
       return file.name.includes(".hwp") ? true : Upload.LIST_IGNORE;
     },
     onChange: (info) => {
+      console.log("info", info);
       const fileObj = info.fileList[0]["originFileObj"];
       setFileObj(fileObj);
     },
   };
+
   const handleUpload = () => {
     const uploadTask = storage
       .ref("WpFile/Standard/" + fileObj.name)
