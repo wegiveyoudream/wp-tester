@@ -3,14 +3,17 @@ import { Button, message, Select, Space, Table, Upload } from "antd";
 import { authService, database, firebaseInstance, storage } from "fbase";
 import React, { useCallback, useEffect, useState } from "react";
 import moment from "moment";
+import {} from "./UploadFile.css";
 const { Option } = Select;
 
 const UploadFile = () => {
   const [refWP] = useState("WpFile/");
-  const [standardFileName, setStandardFileName] = useState("");
+  const [series, setSeries] = useState(0);
+  const [standardName, setStandardName] = useState("");
   // To prevent duplicated upload
   const [fileObj, setFileObj] = useState(null);
-  const [listStandard, setListStandard] = useState([]);
+  const [listSeries, setListSeries] = useState([]);
+  const [listStandardName, setListStandardName] = useState([]);
   const [htmlResult, setHtmlResult] = useState("");
 
   const props = {
@@ -20,7 +23,7 @@ const UploadFile = () => {
         return Upload.LIST_IGNORE;
       }
 
-      if (!standardFileName) {
+      if (!standardName) {
         message.error("Please choose standard file!");
         return Upload.LIST_IGNORE;
       }
@@ -72,7 +75,7 @@ const UploadFile = () => {
               writeUserData(
                 authService.currentUser.uid,
                 newID,
-                standardFileName,
+                standardName,
                 url,
                 authService.currentUser.uid + "_" + fileObj2.name,
                 ""
@@ -81,7 +84,7 @@ const UploadFile = () => {
         }
       );
     },
-    [refWP, standardFileName]
+    [refWP, standardName]
   );
   const writeUserData = (
     UserID,
@@ -119,16 +122,31 @@ const UploadFile = () => {
       }
     });
 
+    var seriesRef = database.ref("WpDb/Series");
+    seriesRef.on("value", (snapshot) => {
+      const data = snapshot.val();
+      if (data != null) {
+        const list = Object.entries(data)
+          .reverse()
+          .map((kv) => (
+            <Option key={kv[0]} value={kv[0]}>
+              {kv[1]}
+            </Option>
+          ));
+        setListSeries(list);
+      }
+    });
+
     var standardRef = database.ref("WpDb/41/Standard");
     standardRef.on("value", (snapshot) => {
-      const dataStandard = snapshot.val();
-      if (dataStandard != null) {
-        const list = Object.values(dataStandard).map((v) => (
+      const data = snapshot.val();
+      if (data != null) {
+        const list = Object.values(data).map((v) => (
           <Option key={v.FileName} value={v.FileName}>
             {v.FileName}
           </Option>
         ));
-        setListStandard(list);
+        setListStandardName(list);
       }
     });
   }, []);
@@ -139,23 +157,35 @@ const UploadFile = () => {
     }
   }, [uploadFile, fileObj]);
 
-  function onChange(value) {
-    setStandardFileName(value);
+  function onChangeSeries(value) {
+    setSeries(value);
   }
+  function onChangeStandard(value) {
+    setStandardName(value);
+  }
+
   return (
     <>
-      <div className="upload-page">
+      <div className="upload-file">
         <div className="upload-area">
           <Select
             showSearch
-            className="select-file"
-            placeholder="Choose standard file"
-            onChange={onChange}
+            className="select-series"
+            placeholder="Choose series"
+            onChange={onChangeSeries}
           >
-            {listStandard}
+            {listSeries}
+          </Select>
+          <Select
+            showSearch
+            className="select-standard"
+            placeholder="Choose standard file"
+            onChange={onChangeStandard}
+          >
+            {listStandardName}
           </Select>
 
-          <Upload {...props} maxCount={1}>
+          <Upload className="upload" {...props} maxCount={1}>
             <Button icon={<UploadOutlined />}>Upload HWP</Button>
           </Upload>
         </div>
