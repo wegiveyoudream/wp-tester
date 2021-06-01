@@ -99,9 +99,9 @@ const Auth = () => {
           >
             {isNewAccount === false ? "Create new account" : "Log In"}
           </Button>
-          <a onClick={toggleAccount} className="sign-up-link">
+          <Button onClick={toggleAccount} className="sign-up-link">
             {isNewAccount ? "Sign up here" : "Sign in here"}
-          </a>
+          </Button>
         </Form.Item>
       </Form>
       <span className="text-error">{error}</span>

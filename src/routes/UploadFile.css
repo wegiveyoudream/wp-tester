@@ -1,0 +1,22 @@
+.upload-file .upload-area {
+  display: inline-block;
+}
+
+.upload-file .select-series {
+  display: inline-block;
+  width: 12rem;
+  margin: 1rem;
+}
+.upload-file .select-standard {
+  display: inline-block;
+  width: 12rem;
+  margin: 1rem;
+}
+.upload-file .upload {
+  display: inline-block;
+  margin: 1rem;
+}
+
+.upload-file .html-result {
+  margin: 1rem;
+}

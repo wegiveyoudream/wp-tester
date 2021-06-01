@@ -3,6 +3,7 @@ import { Button, message, Space, Table, Upload } from "antd";
 import { database, firebaseInstance, storage } from "fbase";
 import React, { useEffect, useState } from "react";
 import moment from "moment";
+import {} from "./UploadFileStandard.css";
 
 const UploadFileStandard = () => {
   const [fileObj, setFileObj] = useState(null);
@@ -105,12 +106,14 @@ const UploadFileStandard = () => {
   ];
   return (
     <>
-      <div className="upload-page">
+      <div className="upload-file-standard">
         <div className="upload-area">
-          <Upload {...props} maxCount={1}>
+          <Upload className="upload" {...props} maxCount={1}>
             <Button icon={<UploadOutlined />}>Upload Standard File</Button>
           </Upload>
-          <Button onClick={handleUpload}>Upload</Button>
+          <Button className="button" onClick={handleUpload}>
+            Upload
+          </Button>
           <span>{checkUpload}</span>
         </div>
         <Table columns={columns} dataSource={listURL} />

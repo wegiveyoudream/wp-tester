@@ -37,13 +37,7 @@ const Slider = () => {
     });
   }, []);
   return (
-    <Menu
-      onClick={handleClick}
-      className="menu"
-      // style={{ width:  }}
-      defaultSelectedKeys={["/"]}
-      mode="inline"
-    >
+    <Menu onClick={handleClick} defaultSelectedKeys={["/"]} mode="inline">
       {/* <Menu.Item key="/">Home</Menu.Item> */}
       {/* <Menu.Item key="/profile">Profile</Menu.Item> */}
       <Menu.Item key="/uploadfile">Upload File</Menu.Item>
