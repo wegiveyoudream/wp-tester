@@ -12,6 +12,10 @@
   width: 12rem;
   margin: 1rem;
 }
+.upload-file .select {
+  display: inline-block;
+  margin: 1rem;
+}
 .upload-file .upload {
   display: inline-block;
   margin: 1rem;

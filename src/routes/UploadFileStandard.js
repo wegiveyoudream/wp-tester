@@ -9,7 +9,7 @@ const UploadFileStandard = () => {
   const [fileObj, setFileObj] = useState(null);
   const [checkUpload, setCheckUpload] = useState("");
 
-  const props = {
+  const uploadProps = {
     beforeUpload: (file) => {
       // if (file.type !== "application/haansofthwp" && !file.name.includes(".hwp")) {
       if (!file.name.includes(".hwp")) {
@@ -108,10 +108,10 @@ const UploadFileStandard = () => {
     <>
       <div className="upload-file-standard">
         <div className="upload-area">
-          <Upload className="upload" {...props} maxCount={1}>
-            <Button icon={<UploadOutlined />}>Upload Standard File</Button>
+          <Upload className="select" {...uploadProps} maxCount={1}>
+            <Button icon={<UploadOutlined />}>Select Standard File</Button>
           </Upload>
-          <Button className="button" onClick={handleUpload}>
+          <Button className="upload" onClick={handleUpload}>
             Upload
           </Button>
           <span>{checkUpload}</span>

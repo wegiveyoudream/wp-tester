@@ -16,7 +16,7 @@ const UploadFile = () => {
   const [listStandardName, setListStandardName] = useState([]);
   const [htmlResult, setHtmlResult] = useState("");
 
-  const props = {
+  const uploadProps = {
     beforeUpload: (file) => {
       if (!file.name.endsWith(".hwp")) {
         message.error(`${file.name} is not HWP file.`);
@@ -33,59 +33,62 @@ const UploadFile = () => {
       return true;
     },
     onChange: (info) => {
-      console.log("info", info);
-      if (info?.event?.returnValue && !fileObj) {
-        const fileObj = info.fileList[0]["originFileObj"];
-        setFileObj(fileObj);
-        // uploadFile(fileObj);
-      }
+      const fileObj = info.fileList.length
+        ? info.fileList[0]["originFileObj"]
+        : null;
+      setFileObj(fileObj);
+      // if (info?.event?.returnValue && !fileObj) {
+      //   const fileObj = info.fileList[0]["originFileObj"];
+      //   setFileObj(fileObj);
+      // }
     },
   };
 
-  const uploadFile = useCallback(
-    (fileObj2) => {
-      const uploadTask = storage
-        .ref(refWP + authService.currentUser.uid + "_" + fileObj2.name)
-        .put(fileObj2);
+  const handleUpload = () => {
+    uploadFile(fileObj);
+  };
 
-      console.log("Uploading...");
-      setHtmlResult("Uploading...");
+  const uploadFile = (fileObj2) => {
+    const uploadTask = storage
+      .ref(refWP + authService.currentUser.uid + "_" + fileObj2.name)
+      .put(fileObj2);
 
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const percent =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log(percent + "% done");
-        },
-        (error) => {
-          console.log(error);
-          console.log(error.message);
-          setHtmlResult(error.message);
-        },
-        () => {
-          storage
-            .ref(refWP)
-            .child(authService.currentUser.uid + "_" + fileObj2.name)
-            .getDownloadURL()
-            .then((url) => {
-              console.log("Checking...");
-              setHtmlResult("Checking...");
-              const newID = database.ref().push().key;
-              writeUserData(
-                authService.currentUser.uid,
-                newID,
-                standardName,
-                url,
-                authService.currentUser.uid + "_" + fileObj2.name,
-                ""
-              );
-            });
-        }
-      );
-    },
-    [refWP, standardName]
-  );
+    console.log("Uploading...");
+    setHtmlResult("Uploading...");
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const percent = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log(percent + "% done");
+      },
+      (error) => {
+        console.log(error);
+        console.log(error.message);
+        setHtmlResult(error.message);
+      },
+      () => {
+        storage
+          .ref(refWP)
+          .child(authService.currentUser.uid + "_" + fileObj2.name)
+          .getDownloadURL()
+          .then((url) => {
+            console.log("Checking...");
+            setHtmlResult("Checking...");
+            const newID = database.ref().push().key;
+            writeUserData(
+              authService.currentUser.uid,
+              newID,
+              standardName,
+              url,
+              authService.currentUser.uid + "_" + fileObj2.name,
+              ""
+            );
+          });
+      }
+    );
+  };
+
   const writeUserData = (
     UserID,
     ID,
@@ -151,11 +154,11 @@ const UploadFile = () => {
     });
   }, []);
 
-  useEffect(() => {
-    if (fileObj) {
-      uploadFile(fileObj);
-    }
-  }, [uploadFile, fileObj]);
+  // useEffect(() => {
+  //   if (fileObj) {
+  //     uploadFile(fileObj);
+  //   }
+  // }, [uploadFile, fileObj]);
 
   function onChangeSeries(value) {
     setSeries(value);
@@ -185,9 +188,12 @@ const UploadFile = () => {
             {listStandardName}
           </Select>
 
-          <Upload className="upload" {...props} maxCount={1}>
-            <Button icon={<UploadOutlined />}>Upload HWP</Button>
+          <Upload className="select" {...uploadProps} maxCount={1}>
+            <Button icon={<UploadOutlined />}>Select HWP</Button>
           </Upload>
+          <Button disabled={!fileObj} className="upload" onClick={handleUpload}>
+            Upload
+          </Button>
         </div>
         <div
           className="html-result"
