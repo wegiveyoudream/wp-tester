@@ -3,17 +3,22 @@ import { Button, message, Select, Space, Table, Upload } from "antd";
 import { authService, database, firebaseInstance, storage } from "fbase";
 import React, { useCallback, useEffect, useState } from "react";
 import moment from "moment";
+import SelectSeries from "../components/SelectSeries";
 import {} from "./UploadFile.css";
 const { Option } = Select;
 
 const UploadFile = () => {
-  const [refWP] = useState("WpFile/");
-  const [series, setSeries] = useState(0);
-  const [standardName, setStandardName] = useState("");
+  const [wpFileUserRoot] = useState(
+    `WpFile/${process.env.REACT_APP_DEFAULT_SERIES_SEQ}/User/`
+  );
   // To prevent duplicated upload
   const [fileObj, setFileObj] = useState(null);
-  const [listSeries, setListSeries] = useState([]);
-  const [listStandardName, setListStandardName] = useState([]);
+  const [seriesSeq, setSeriesSeq] = useState(
+    process.env.REACT_APP_DEFAULT_SERIES_SEQ
+  );
+  const [optionsSeries, setOptionsSeries] = useState([]);
+  const [standardName, setStandardName] = useState("");
+  const [optionsStandardName, setOptionsStandardName] = useState([]);
   const [htmlResult, setHtmlResult] = useState("");
 
   const uploadProps = {
@@ -50,7 +55,7 @@ const UploadFile = () => {
 
   const uploadFile = (fileObj2) => {
     const uploadTask = storage
-      .ref(refWP + authService.currentUser.uid + "_" + fileObj2.name)
+      .ref(wpFileUserRoot + authService.currentUser.uid + "_" + fileObj2.name)
       .put(fileObj2);
 
     console.log("Uploading...");
@@ -69,7 +74,7 @@ const UploadFile = () => {
       },
       () => {
         storage
-          .ref(refWP)
+          .ref(wpFileUserRoot)
           .child(authService.currentUser.uid + "_" + fileObj2.name)
           .getDownloadURL()
           .then((url) => {
@@ -99,7 +104,7 @@ const UploadFile = () => {
   ) => {
     firebaseInstance
       .database()
-      .ref("WpDb/41/ListPending/" + UserID + "/" + ID)
+      .ref(`WpDb/${seriesSeq}/ListPending/` + UserID + "/" + ID)
       .set({
         FileDestName: FileDestName,
         FileSrc: FileSrc,
@@ -111,7 +116,7 @@ const UploadFile = () => {
 
   useEffect(() => {
     var completedRef = database.ref(
-      "WpDb/41/ListCompleted/" + authService.currentUser.uid
+      `WpDb/${seriesSeq}/ListCompleted/` + authService.currentUser.uid
     );
     completedRef.on("value", (snapshot) => {
       // FileDestName, FileSrcName, InsertTime
@@ -125,31 +130,29 @@ const UploadFile = () => {
       }
     });
 
+    var standardRef = database.ref(`WpDb/${seriesSeq}/Standard`);
+    standardRef.on("value", (snapshot) => {
+      const data = snapshot.val();
+      if (data != null) {
+        const options = Object.values(data).map((v) => ({
+          value: v.FileName,
+          label: v.FileName,
+        }));
+        setOptionsStandardName(options);
+        setStandardName(options.length ? options[0].value : "");
+      }
+    });
+  }, [seriesSeq]);
+
+  useEffect(() => {
     var seriesRef = database.ref("WpDb/Series");
     seriesRef.on("value", (snapshot) => {
       const data = snapshot.val();
       if (data != null) {
-        const list = Object.entries(data)
+        const options = Object.entries(data)
           .reverse()
-          .map((kv) => (
-            <Option key={kv[0]} value={kv[0]}>
-              {kv[1]}
-            </Option>
-          ));
-        setListSeries(list);
-      }
-    });
-
-    var standardRef = database.ref("WpDb/41/Standard");
-    standardRef.on("value", (snapshot) => {
-      const data = snapshot.val();
-      if (data != null) {
-        const list = Object.values(data).map((v) => (
-          <Option key={v.FileName} value={v.FileName}>
-            {v.FileName}
-          </Option>
-        ));
-        setListStandardName(list);
+          .map((kv) => ({ value: kv[0], label: kv[1] }));
+        setOptionsSeries(options);
       }
     });
   }, []);
@@ -161,7 +164,7 @@ const UploadFile = () => {
   // }, [uploadFile, fileObj]);
 
   function onChangeSeries(value) {
-    setSeries(value);
+    setSeriesSeq(value);
   }
   function onChangeStandard(value) {
     setStandardName(value);
@@ -171,22 +174,20 @@ const UploadFile = () => {
     <>
       <div className="upload-file">
         <div className="upload-area">
-          <Select
-            showSearch
+          <SelectSeries
             className="select-series"
-            placeholder="Choose series"
+            options={optionsSeries}
+            defaultValue={process.env.REACT_APP_DEFAULT_SERIES_SEQ}
             onChange={onChangeSeries}
-          >
-            {listSeries}
-          </Select>
+          />
           <Select
             showSearch
             className="select-standard"
             placeholder="Choose standard file"
+            value={standardName}
+            options={optionsStandardName}
             onChange={onChangeStandard}
-          >
-            {listStandardName}
-          </Select>
+          />
 
           <Upload className="select" {...uploadProps} maxCount={1}>
             <Button icon={<UploadOutlined />}>Select HWP</Button>
