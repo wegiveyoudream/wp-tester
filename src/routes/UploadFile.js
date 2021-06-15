@@ -1,11 +1,10 @@
 import { UploadOutlined } from "@ant-design/icons";
-import { Button, message, Select, Space, Table, Upload } from "antd";
-import { authService, database, firebaseInstance, storage } from "fbase";
-import React, { useCallback, useEffect, useState } from "react";
+import { Button, message, Select, Upload } from "antd";
+import { authService, database, databaseOther, storageOther } from "fbase";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 import SelectSeries from "../components/SelectSeries";
 import {} from "./UploadFile.css";
-const { Option } = Select;
 
 const UploadFile = () => {
   const [wpFileUserRoot] = useState(
@@ -54,7 +53,7 @@ const UploadFile = () => {
   };
 
   const uploadFile = (fileObj2) => {
-    const uploadTask = storage
+    const uploadTask = storageOther
       .ref(wpFileUserRoot + authService.currentUser.uid + "_" + fileObj2.name)
       .put(fileObj2);
 
@@ -73,14 +72,14 @@ const UploadFile = () => {
         setHtmlResult(error.message);
       },
       () => {
-        storage
+        storageOther
           .ref(wpFileUserRoot)
           .child(authService.currentUser.uid + "_" + fileObj2.name)
           .getDownloadURL()
           .then((url) => {
             console.log("Checking...");
             setHtmlResult("Checking...");
-            const newID = database.ref().push().key;
+            const newID = databaseOther.ref().push().key;
             writeUserData(
               authService.currentUser.uid,
               newID,
@@ -102,8 +101,7 @@ const UploadFile = () => {
     FileSrcName,
     HtmlResult
   ) => {
-    firebaseInstance
-      .database()
+    databaseOther
       .ref(`WpDb/${seriesSeq}/ListPending/` + UserID + "/" + ID)
       .set({
         FileDestName: FileDestName,
@@ -115,7 +113,7 @@ const UploadFile = () => {
   };
 
   useEffect(() => {
-    var completedRef = database.ref(
+    const completedRef = databaseOther.ref(
       `WpDb/${seriesSeq}/ListCompleted/` + authService.currentUser.uid
     );
     completedRef.on("value", (snapshot) => {
@@ -130,7 +128,7 @@ const UploadFile = () => {
       }
     });
 
-    var standardRef = database.ref(`WpDb/${seriesSeq}/Standard`);
+    const standardRef = database.ref(`WpDb/${seriesSeq}/Standard`);
     standardRef.on("value", (snapshot) => {
       const data = snapshot.val();
       if (data != null) {
@@ -145,7 +143,7 @@ const UploadFile = () => {
   }, [seriesSeq]);
 
   useEffect(() => {
-    var seriesRef = database.ref("WpDb/Series");
+    const seriesRef = database.ref("WpDb/Series");
     seriesRef.on("value", (snapshot) => {
       const data = snapshot.val();
       if (data != null) {
