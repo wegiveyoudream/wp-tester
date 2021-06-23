@@ -55,12 +55,12 @@ const UploadFileStandard = () => {
           .then((url) => {
             setCheckUpload("Upload successfull.");
             const newID = database.ref().push().key;
-            writeUserData(newID, url, fileObj.name, true);
+            writeUserData(newID, url, fileObj.name);
           });
       }
     );
   };
-  const writeUserData = (ID, FileSrc, FileName, IsActive) => {
+  const writeUserData = (ID, FileSrc, FileName) => {
     firebaseInstance
       .database()
       .ref(`WpDb/${seriesSeq}/Standard/` + ID)
@@ -68,7 +68,6 @@ const UploadFileStandard = () => {
         FileSrc: FileSrc,
         FileName: FileName,
         InsertTime: moment().format("YYYY-MM-DD HH:mm:ss"),
-        IsActive: IsActive,
       });
   };
 
@@ -109,14 +108,6 @@ const UploadFileStandard = () => {
       dataIndex: "InsertTime",
       key: "InsertTime",
       render: (text, record) => <span>{record.InsertTime}</span>,
-    },
-    {
-      title: "IsActive",
-      dataIndex: "IsActive",
-      key: "IsActive",
-      render: (text, record) => (
-        <span>{record.IsActive ? "Active" : "In Active"}</span>
-      ),
     },
     {
       title: "Action",

@@ -1,6 +1,9 @@
 .upload-file .upload-area {
   display: inline-block;
 }
+.upload-file .tab-area {
+  margin: 1rem;
+}
 
 .upload-file .select-series {
   display: inline-block;
@@ -18,9 +21,5 @@
 }
 .upload-file .upload {
   display: inline-block;
-  margin: 1rem;
-}
-
-.upload-file .html-result {
   margin: 1rem;
 }
