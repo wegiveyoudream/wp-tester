@@ -99,17 +99,17 @@ const UploadFile = () => {
   const writeUserData = (
     UserID,
     ID,
-    FileDestName,
-    FileSrc,
-    FileSrcName,
+    FileNameStandard,
+    FullPath,
+    FileName,
     ResultJson
   ) => {
     databaseOther
       .ref(`WpDb/${seriesSeq}/ListPending/` + UserID + "/" + ID)
       .set({
-        FileDestName: FileDestName,
-        FileSrc: FileSrc,
-        FileSrcName: FileSrcName,
+        FileNameStandard: FileNameStandard,
+        FullPath: FullPath,
+        FileName: FileName,
         InsertTime: moment().format("YYYY-MM-DD HH:mm:ss"),
         ResultJson: ResultJson,
       });
@@ -120,7 +120,7 @@ const UploadFile = () => {
       `WpDb/${seriesSeq}/ListCompleted/` + authService.currentUser.uid
     );
     completedRef.on("value", (snapshot) => {
-      // FileDestName, FileSrcName, InsertTime
+      // FileNameStandard, FileName, InsertTime
       const data = snapshot.val();
       if (data != null) {
         const list = Object.values(data);
