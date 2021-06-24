@@ -37,7 +37,7 @@ const UploadFile = () => {
 
       setFileObj(null);
 
-      return true;
+      return false;
     },
     onChange: (info) => {
       const fileObj = info.fileList.length
@@ -131,6 +131,7 @@ const UploadFile = () => {
           const json = JSON.parse(item.ResultJson);
           setMessage("");
           setResultJson(json);
+          console.log(json);
         } catch (e) {
           setMessage(item.ResultJson);
           setResultJson({});
@@ -180,6 +181,15 @@ const UploadFile = () => {
     setStandardName(value);
   }
 
+  function getTabText(Description, Point) {
+    let text = Description;
+    if (Point !== 0) {
+      text += ` <${Point}>`;
+    }
+
+    return text;
+  }
+
   return (
     <>
       <div className="upload-file">
@@ -208,12 +218,19 @@ const UploadFile = () => {
         </div>
         <div className="tab-area">
           {message && <Alert message={message} />}
+          {resultJson?.Point && <h3>{`Point: ${resultJson?.Point}`}</h3>}
           <Tabs size="small">
             {resultJson?.Groups?.map((group) => (
-              <TabPane tab={group.Description} key={group.Name}>
+              <TabPane
+                tab={getTabText(group.Description, group.Point)}
+                key={group.Name}
+              >
                 <Tabs>
                   {group.Items.map((item) => (
-                    <TabPane tab={item.Description} key={item.Name}>
+                    <TabPane
+                      tab={getTabText(item.Description, item.Point)}
+                      key={item.Name}
+                    >
                       <div
                         className="html-result"
                         dangerouslySetInnerHTML={{ __html: item.Content }}
