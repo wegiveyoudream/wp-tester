@@ -5,7 +5,6 @@ import Profile from "routes/Profile";
 import UploadFile from "routes/UploadFile";
 import Auth from "../routes/Auth";
 import Menu from "../routes/Menu";
-import UploadFileStandard from "routes/UploadFileStandard";
 
 const AppRouter = ({ isLoggedIn }) => {
   console.log(isLoggedIn ? "login success" : "login false");
@@ -33,9 +32,6 @@ const AppRouter = ({ isLoggedIn }) => {
                 </Route>
                 <Route exact path="/uploadfile">
                   <UploadFile isLoggedIn={isLoggedIn} />
-                </Route>
-                <Route exact path="/uploadfilestandard">
-                  <UploadFileStandard />
                 </Route>
               </div>
             </div>

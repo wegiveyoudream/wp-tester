@@ -3,8 +3,9 @@ import { Button, Alert, Select, Upload, Tabs } from "antd";
 import { authService, database, databaseOther, storageOther } from "fbase";
 import React, { useEffect, useState } from "react";
 import moment from "moment";
-import SelectSeries from "../components/SelectSeries";
 import {} from "./UploadFile.css";
+import { standards, seriesList } from "data";
+
 const { TabPane } = Tabs;
 
 const UploadFile = () => {
@@ -141,31 +142,17 @@ const UploadFile = () => {
       }
     });
 
-    const standardRef = database.ref(`WpDb/${seriesSeq}/Standard`);
-    standardRef.on("value", (snapshot) => {
-      const data = snapshot.val();
-      if (data != null) {
-        const options = Object.values(data).map((v) => ({
-          value: v.FileName,
-          label: v.FileName,
-        }));
-        setOptionsStandardName(options);
-        setStandardName(options.length ? options[0].value : "");
-      }
-    });
+    const options = standards[seriesSeq].map((v) => ({ value: v, label: v }));
+    setOptionsStandardName(options);
+    setStandardName(options.length ? options[0].value : "");
   }, [seriesSeq]);
 
   useEffect(() => {
-    const seriesRef = database.ref("WpDb/Series");
-    seriesRef.on("value", (snapshot) => {
-      const data = snapshot.val();
-      if (data != null) {
-        const options = Object.entries(data)
-          .reverse()
-          .map((kv) => ({ value: kv[0], label: kv[1] }));
-        setOptionsSeries(options);
-      }
-    });
+    const options = seriesList;
+    setOptionsSeries(options);
+    if (options.length) {
+      setSeriesSeq(options[0].value);
+    }
   }, []);
 
   // useEffect(() => {
@@ -175,6 +162,7 @@ const UploadFile = () => {
   // }, [uploadFile, fileObj]);
 
   function onChangeSeries(value) {
+    console.log("onChangeSeries", value);
     setSeriesSeq(value);
   }
   function onChangeStandard(value) {
@@ -183,22 +171,26 @@ const UploadFile = () => {
 
   function getTabText(Description, Point) {
     let text = Description;
+    let className = "wp_value";
     if (Point !== 0) {
       text += ` <${Point}>`;
+      className = "wp_value_wrong";
     }
 
-    return text;
+    return <span className={className}>{text}</span>;
   }
 
   return (
     <>
       <div className="upload-file">
         <div className="upload-area">
-          <SelectSeries
+          <Select
             className="select-series"
-            options={optionsSeries}
-            defaultValue={process.env.REACT_APP_DEFAULT_SERIES_SEQ}
+            placeholder="Choose series"
             onChange={onChangeSeries}
+            defaultValue={process.env.REACT_APP_DEFAULT_SERIES_SEQ}
+            value={seriesSeq}
+            options={optionsSeries}
           />
           <Select
             showSearch
@@ -218,14 +210,25 @@ const UploadFile = () => {
         </div>
         <div className="tab-area">
           {message && <Alert message={message} />}
-          {resultJson?.Point && <h3>{`Point: ${resultJson?.Point}`}</h3>}
+          {resultJson && (
+            <h3>
+              Point:
+              <span
+                className={
+                  resultJson.Point >= 80 ? "wp_value" : "wp_value_wrong"
+                }
+              >
+                {resultJson.Point}
+              </span>
+            </h3>
+          )}
           <Tabs size="small">
             {resultJson?.Groups?.map((group) => (
               <TabPane
                 tab={getTabText(group.Description, group.Point)}
                 key={group.Name}
               >
-                <Tabs>
+                <Tabs size="small">
                   {group.Items.map((item) => (
                     <TabPane
                       tab={getTabText(item.Description, item.Point)}
