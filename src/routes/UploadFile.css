@@ -7,12 +7,6 @@
 .upload-file .tab-area .ant-tabs-nav {
   margin-bottom: 0px;
 }
-div[id$="tab-DictationChar"] {
-  color: red;
-}
-#rc-tabs-1-tab-DictationWord {
-  color: red;
-}
 .upload-file .tab-area .html-result {
   padding-top: 0.5rem;
 }
