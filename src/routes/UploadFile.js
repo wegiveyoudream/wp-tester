@@ -105,8 +105,8 @@ const UploadFile = () => {
               authService.currentUser.uid,
               newID,
               standardName,
-              url,
               authService.currentUser.uid + "_" + fileObj2.name,
+              url,
               ""
             );
           });
@@ -118,16 +118,16 @@ const UploadFile = () => {
     UserID,
     ID,
     FileNameStandard,
-    FullPath,
     FileName,
+    FullPath,
     ResultJson
   ) => {
     databaseOther
       .ref(`WpDb/${seriesSeq}/ListPending/` + UserID + "/" + ID)
       .set({
         FileNameStandard: FileNameStandard,
-        FullPath: FullPath,
         FileName: FileName,
+        FullPath: FullPath,
         InsertTime: moment().format("YYYY-MM-DD HH:mm:ss"),
         ResultJson: ResultJson,
       });
