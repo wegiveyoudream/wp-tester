@@ -120,7 +120,6 @@ const UploadFile = () => {
     FileNameStandard,
     FileName,
     FullPath,
-    ResultJson
   ) => {
     databaseOther
       .ref(`WpDb/${seriesSeq}/ListPending/` + UserID + "/" + ID)
@@ -129,7 +128,6 @@ const UploadFile = () => {
         FileName: FileName,
         FullPath: FullPath,
         InsertTime: moment().format("YYYY-MM-DD HH:mm:ss"),
-        ResultJson: ResultJson,
       });
   };
 
