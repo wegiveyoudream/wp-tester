@@ -6,7 +6,8 @@ import {
 } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import "antd/dist/antd.css";
-import { authService, firebaseInstance } from "fbase";
+import { authService } from "fbase";
+import firebase from "firebase/app";
 import React, { useState } from "react";
 import "../index.css";
 
@@ -46,9 +47,9 @@ const Auth = () => {
   const onSocialClick = async (name) => {
     let provider;
     if (name === "google") {
-      provider = new firebaseInstance.auth.GoogleAuthProvider();
+      provider = new firebase.auth.GoogleAuthProvider();
     } else if (name === "github") {
-      provider = new firebaseInstance.auth.GithubAuthProvider();
+      provider = new firebase.auth.GithubAuthProvider();
     }
     const data = await authService.signInWithPopup(provider);
     console.log(data);
