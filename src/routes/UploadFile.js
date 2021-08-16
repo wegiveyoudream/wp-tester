@@ -1,5 +1,5 @@
-import { UploadOutlined, LoadingOutlined } from "@ant-design/icons";
-import { Button, Alert, Select, Upload, Tabs, Row, Col } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
+import { Button, Alert, Select, Upload, Tabs } from "antd";
 import { authService, databaseOther, storageOther } from "fbase";
 import React, { useEffect, useState } from "react";
 import moment from "moment";
@@ -114,13 +114,7 @@ const UploadFile = () => {
     );
   };
 
-  const writeUserData = (
-    UserID,
-    ID,
-    FileNameStandard,
-    FileName,
-    FullPath,
-  ) => {
+  const writeUserData = (UserID, ID, FileNameStandard, FileName, FullPath) => {
     databaseOther
       .ref(`WpDb/${seriesSeq}/ListPending/` + UserID + "/" + ID)
       .set({
@@ -131,25 +125,24 @@ const UploadFile = () => {
       });
   };
 
-  const deleteFile = (fileName) => {
-    storageOther
-      .ref(wpFileUserRoot)
-      .child(fileName)
-      .delete()
-      .then(() => {
-        console.log(`${fileName} deleted.`);
-      })
-      .catch((error) => {
-        console.log(`${fileName}:`, error);
-      });
-  };
-
   useEffect(() => {
+    const deleteFile = (fileName) => {
+      storageOther
+        .ref(wpFileUserRoot)
+        .child(fileName)
+        .delete()
+        .then(() => {
+          console.log(`${fileName} deleted.`);
+        })
+        .catch((error) => {
+          console.log(`${fileName}:`, error);
+        });
+    };
+
     const completedRef = databaseOther.ref(
       `WpDb/${seriesSeq}/ListCompleted/` + authService.currentUser.uid
     );
     completedRef.on("value", (snapshot) => {
-      console.log("snapshot", snapshot);
       const data = snapshot.val();
       if (data != null) {
         const list = Object.values(data);
@@ -174,7 +167,7 @@ const UploadFile = () => {
     const options = standards[seriesSeq].map((v) => ({ value: v, label: v }));
     setOptionsStandardName(options);
     setStandardName(options.length ? options[0].value : "");
-  }, [seriesSeq]);
+  }, [seriesSeq, wpFileUserRoot]);
 
   useEffect(() => {
     const options = seriesList;
